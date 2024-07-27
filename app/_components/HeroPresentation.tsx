@@ -1,39 +1,17 @@
-"use client";
-import React, { ChangeEvent, DragEvent, useState } from "react";
+import React, { FC } from "react";
 import Image from "next/image";
 import resumeIlustration from "../../public/ilu/resume.svg";
 
-const Hero = () => {
-	const [dragActive, setDragActive] = useState(false);
-
-	const handleDrag = (e: DragEvent<HTMLElement>) => {
-		e.preventDefault();
-		e.stopPropagation();
-		if (e.type === "dragenter" || e.type === "dragover") {
-			setDragActive(true);
-		} else if (e.type === "dragleave") {
-			setDragActive(false);
-		}
-	};
-
-	const handleDrop = (e: DragEvent<HTMLLabelElement>): void => {
-		e.preventDefault();
-		e.stopPropagation();
-		setDragActive(false);
-		if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-			// Handle file drop
-			console.log(e.dataTransfer.files[0]);
-		}
-	};
-
-	const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-		if (e.target.files && e.target.files[0]) {
-			// Handle file select
-			console.log("file selected");
-			console.log(e.target.files[0]);
-		}
-	};
-
+interface HeroPresentationProps {
+	handleDrag: (e: React.DragEvent<HTMLLabelElement>) => void;
+	handleDrop: (e: React.DragEvent<HTMLLabelElement>) => void;
+	handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+const HeroPresentation: FC<HeroPresentationProps> = ({
+	handleDrag,
+	handleDrop,
+	handleChange,
+}) => {
 	return (
 		<main className="w-screen flex justify-center h-[100vh] bg-background bg-[linear-gradient(to_bottom,#000,#200D42_34%,#4F21A1_65%,#A46EDB_98%)]">
 			{/* hero section */}
@@ -105,4 +83,5 @@ const Hero = () => {
 		</main>
 	);
 };
-export default Hero;
+
+export default HeroPresentation;
