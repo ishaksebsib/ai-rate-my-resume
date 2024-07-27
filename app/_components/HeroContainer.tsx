@@ -1,61 +1,47 @@
 "use client";
-import React, { ChangeEvent, DragEvent, useState } from "react";
+import React, { useState } from "react";
 import HeroPresentation from "./HeroPresentation";
+import axios from "axios";
+import { CONSTANT } from "@/constant";
+import { useRouter } from "next/navigation";
+
+export enum UploadStatus {
+	INITIAL = "INITIAL",
+	UPLOADING = "UPLOADING",
+	UPLOADED = "UPLOADED",
+	ERROR = "ERROR",
+}
 
 const HeroContainer = () => {
-	const [_dragActive, setDragActive] = useState(false);
-
-	const handleDrag = (e: DragEvent<HTMLLabelElement>): void => {
-		e.preventDefault();
-		e.stopPropagation();
-		if (e.type === "dragenter" || e.type === "dragover") {
-			setDragActive(true);
-		} else if (e.type === "dragleave") {
-			setDragActive(false);
-		}
-	};
-
-	const handleDrop = (e: DragEvent<HTMLLabelElement>): void => {
-		e.preventDefault();
-		e.stopPropagation();
-		setDragActive(false);
-		if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-			uploadFile(e.dataTransfer.files[0]);
-		}
-	};
-
-	const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-		if (e.target.files && e.target.files[0]) {
-			uploadFile(e.target.files[0]);
-		}
-	};
+	const router = useRouter();
+	const [uploadStatus, setUploadStatus] = useState<UploadStatus>(
+		UploadStatus.INITIAL,
+	);
 
 	const uploadFile = async (file: File) => {
 		const formData = new FormData();
 		formData.append("file", file);
 
 		try {
-			const response = await fetch("/api/upload", {
-				method: "POST",
-				body: formData,
+			console.log("uploading file");
+			setUploadStatus(UploadStatus.UPLOADING);
+			const response = await axios.post(CONSTANT.URLS.uploadResume, formData, {
+				headers: {
+					"Content-Type": "multipart/form-data",
+				},
 			});
 
-			if (!response.ok) {
-				throw new Error("Failed to upload file");
-			}
-
-			const data = await response.json();
-			console.log("File uploaded successfully:", data);
+			console.log("File uploaded successfully:", response.data);
+			setUploadStatus(UploadStatus.UPLOADED);
+			router.push("/result/" + response.data.result_id);
 		} catch (error) {
 			console.error("Error uploading file:", error);
+			setUploadStatus(UploadStatus.ERROR);
 		}
 	};
+
 	return (
-		<HeroPresentation
-			handleDrag={handleDrag}
-			handleDrop={handleDrop}
-			handleChange={handleChange}
-		/>
+		<HeroPresentation uploadFile={uploadFile} uploadStatus={uploadStatus} />
 	);
 };
 export default HeroContainer;
