@@ -33,9 +33,9 @@ const HeroContainer = () => {
       return;
     }
 
-		// Upload file
+    // Upload file
     try {
-      console.log("uploading file");
+      //console.log("uploading file");
       setUploadStatus(UploadStatus.UPLOADING);
       const response = await axios.post(CONSTANT.URLS.uploadResume, formData, {
         headers: {
@@ -43,11 +43,11 @@ const HeroContainer = () => {
         },
       });
 
-      console.log("File uploaded successfully:", response.data);
+      //console.log("File uploaded successfully:", response.data);
       setUploadStatus(UploadStatus.UPLOADED);
-      router.push("/result/" + response.data.result_id);
+      router.replace("/result/" + response.data.result_id);
     } catch (error) {
-      console.error("Error uploading file:", error);
+      //console.error("Error uploading file:", error);
       setUploadStatus(UploadStatus.ERROR);
     }
   };

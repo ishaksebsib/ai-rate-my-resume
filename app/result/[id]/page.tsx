@@ -18,11 +18,11 @@ export default ResultContainer;
 
 const getResults = async (id: string) => {
   try {
-    console.log(CONSTANT.URLS.getResumeResult + `/${id}`);
+    //console.log(CONSTANT.URLS.getResumeResult + `/${id}`);
     const response = await axios.get(CONSTANT.URLS.getResumeResult + `/${id}`);
     return response.data;
   } catch (error) {
-    console.error(error);
+    //console.error(error);
     return null;
   }
 };
