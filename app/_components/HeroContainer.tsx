@@ -45,7 +45,7 @@ const HeroContainer = () => {
 
       //console.log("File uploaded successfully:", response.data);
       setUploadStatus(UploadStatus.UPLOADED);
-      router.replace("/result/" + response.data.result_id);
+      router.push("/result/" + response.data.result_id);
     } catch (error) {
       //console.error("Error uploading file:", error);
       setUploadStatus(UploadStatus.ERROR);
