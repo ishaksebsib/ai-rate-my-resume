@@ -10,6 +10,11 @@ const config = {
 	],
 	prefix: "",
 	theme: {
+		colors: {
+			background: "#FAFAFA",
+			foreground: "#FFFFFF",
+			dark: "#000000",
+		},
 		fontFamily: {
 			sans: ["Inter", "sans-serif"],
 		},
