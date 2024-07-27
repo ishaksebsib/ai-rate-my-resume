@@ -4,44 +4,56 @@ import HeroPresentation from "./HeroPresentation";
 import axios from "axios";
 import { CONSTANT } from "@/constant";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export enum UploadStatus {
-	INITIAL = "INITIAL",
-	UPLOADING = "UPLOADING",
-	UPLOADED = "UPLOADED",
-	ERROR = "ERROR",
+  INITIAL = "INITIAL",
+  UPLOADING = "UPLOADING",
+  UPLOADED = "UPLOADED",
+  ERROR = "ERROR",
 }
 
 const HeroContainer = () => {
-	const router = useRouter();
-	const [uploadStatus, setUploadStatus] = useState<UploadStatus>(
-		UploadStatus.INITIAL,
-	);
+  const router = useRouter();
+  const [uploadStatus, setUploadStatus] = useState<UploadStatus>(
+    UploadStatus.INITIAL,
+  );
 
-	const uploadFile = async (file: File) => {
-		const formData = new FormData();
-		formData.append("file", file);
+  const uploadFile = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
 
-		try {
-			console.log("uploading file");
-			setUploadStatus(UploadStatus.UPLOADING);
-			const response = await axios.post(CONSTANT.URLS.uploadResume, formData, {
-				headers: {
-					"Content-Type": "multipart/form-data",
-				},
-			});
+    // Validate file type
+    const validFileTypes = [
+      "application/pdf",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ];
+    if (!validFileTypes.includes(file.type)) {
+      toast.error("Invalid file type. Please upload a PDF or DOCX file.");
+      return;
+    }
 
-			console.log("File uploaded successfully:", response.data);
-			setUploadStatus(UploadStatus.UPLOADED);
-			router.push("/result/" + response.data.result_id);
-		} catch (error) {
-			console.error("Error uploading file:", error);
-			setUploadStatus(UploadStatus.ERROR);
-		}
-	};
+		// Upload file
+    try {
+      console.log("uploading file");
+      setUploadStatus(UploadStatus.UPLOADING);
+      const response = await axios.post(CONSTANT.URLS.uploadResume, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-	return (
-		<HeroPresentation uploadFile={uploadFile} uploadStatus={uploadStatus} />
-	);
+      console.log("File uploaded successfully:", response.data);
+      setUploadStatus(UploadStatus.UPLOADED);
+      router.push("/result/" + response.data.result_id);
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      setUploadStatus(UploadStatus.ERROR);
+    }
+  };
+
+  return (
+    <HeroPresentation uploadFile={uploadFile} uploadStatus={uploadStatus} />
+  );
 };
 export default HeroContainer;
