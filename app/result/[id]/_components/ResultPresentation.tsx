@@ -12,7 +12,7 @@ import { Bar, BarChart, XAxis, YAxis } from "recharts";
 import {
   Card,
   CardContent,
-  CardFooter,
+  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -47,22 +47,29 @@ const ResultPresentation: FC<{ resumeResult: IResumeResult }> = ({
   const { feedback } = resumeResult;
   const { content, format, additionals } = feedback;
   return (
-    <main className="w-full h-full p-4 flex flex-col gap-4 bg-whitelight">
+    <main className="w-full h-full flex flex-col gap-4 bg-whitelight p-6 sm:p-8">
+			{/*
+        *<h1 className="font-bold text-center text-2xl mt-4 text-blue-500 md:text-4xl md:my-4">
+        *  Your Resume Analysis
+        *</h1>
+				*/}
       {/* score, content, format and addtionals section */}
-      <section className="">
-        <div>
-          <ScoreComponentCard score={resumeResult.score} />
-        </div>
-        <div>
-          <BarChartCard
-            contentScore={content.score}
-            formatScore={format.score}
-            additionalsScore={additionals.score}
-          />
-        </div>
+      <section className="flex flex-col gap-4 sm:flex-row sm:justify-center sm:w-full">
+        <ScoreComponentCard score={resumeResult.score} />
+        <BarChartCard
+          contentScore={content.score}
+          formatScore={format.score}
+          additionalsScore={additionals.score}
+        />
       </section>
-      <section>
-        {/* detail section */}
+
+      {/* detail section */}
+      <section className="flex flex-col gap-4">
+				{/*
+          *<h1 className="font-bold text-center text-2xl mt-4 text-blue-500 md:text-4xl md:my-4">
+          *  Detail FeedBack
+          *</h1>
+					*/}
         <DetailScoreComponent feedbackName="Content" feedback={content} />
         <DetailScoreComponent feedbackName="Format" feedback={format} />
         <DetailScoreComponent
@@ -95,9 +102,12 @@ export function ScoreComponentCard({ score }: { score: number }) {
   } satisfies ChartConfig;
 
   return (
-    <Card className="">
+    <Card className="sm:w-[80%]">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Resume Score </CardTitle>
+        <CardTitle className="text-2xl">Resume Score </CardTitle>
+        <CardDescription className="flex-col gap-2 text-sm">
+          You scored {chartData[1].score} out of 100%
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
@@ -149,11 +159,6 @@ export function ScoreComponentCard({ score }: { score: number }) {
           </PieChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm">
-        <div className="leading-none text-muted-foreground">
-          You scored {chartData[1].score} out of 100%
-        </div>
-      </CardFooter>
     </Card>
   );
 }
@@ -179,9 +184,12 @@ export function BarChartCard({
     },
   } satisfies ChartConfig;
   return (
-    <Card>
+    <Card className="sm:w-[80%] md:w-[50%] ">
       <CardHeader>
         <CardTitle>Bar Chart - Horizontal</CardTitle>
+        <CardDescription>
+          Score for Content, Format and Additionals
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -210,11 +218,6 @@ export function BarChartCard({
           </BarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="leading-none text-muted-foreground">
-          Score for Content, Format and Additionals
-        </div>
-      </CardFooter>
     </Card>
   );
 }
@@ -227,8 +230,8 @@ export function DetailScoreComponent({
   feedback: FeedbackDetails;
 }) {
   return (
-    <section>
-      <h1 className="font-bold pt-8 pb-4 pl-1">{feedbackName}</h1>
+    <section className="bg-white p-4 border rounded-lg">
+			<h1 className="font-bold pt-8 pb-4 pl-1">{feedbackName}</h1>
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="item-1">
           <AccordionTrigger className="pl-1">Strengths</AccordionTrigger>
