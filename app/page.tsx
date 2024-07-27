@@ -41,7 +41,7 @@ export default function Home() {
                   <span className="hidden sm:block">or drag and drop</span>{" "}
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  SVG, PNG, JPG or GIF (MAX. 800x400px)
+                  PDF or DOCX (MAX SIZE. 2MB)
                 </p>
               </div>
               <input id="dropzone-file" type="file" className="hidden" />
