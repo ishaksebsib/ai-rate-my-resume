@@ -47,14 +47,9 @@ const ResultPresentation: FC<{ resumeResult: IResumeResult }> = ({
   const { feedback } = resumeResult;
   const { content, format, additionals } = feedback;
   return (
-    <main className="w-full h-full flex flex-col gap-4 bg-whitelight p-6 sm:p-8">
-			{/*
-        *<h1 className="font-bold text-center text-2xl mt-4 text-blue-500 md:text-4xl md:my-4">
-        *  Your Resume Analysis
-        *</h1>
-				*/}
+    <main className="w-full flex flex-col gap-4 bg-black p-6 sm:p-8">
       {/* score, content, format and addtionals section */}
-      <section className="flex flex-col gap-4 sm:flex-row sm:justify-center sm:w-full">
+      <section className="flex flex-col gap-4 pt-5 sm:flex-row sm:justify-center sm:w-full">
         <ScoreComponentCard score={resumeResult.score} />
         <BarChartCard
           contentScore={content.score}
@@ -64,12 +59,7 @@ const ResultPresentation: FC<{ resumeResult: IResumeResult }> = ({
       </section>
 
       {/* detail section */}
-      <section className="flex flex-col gap-4">
-				{/*
-          *<h1 className="font-bold text-center text-2xl mt-4 text-blue-500 md:text-4xl md:my-4">
-          *  Detail FeedBack
-          *</h1>
-					*/}
+      <section className="mb-24 grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         <DetailScoreComponent feedbackName="Content" feedback={content} />
         <DetailScoreComponent feedbackName="Format" feedback={format} />
         <DetailScoreComponent
@@ -102,7 +92,7 @@ export function ScoreComponentCard({ score }: { score: number }) {
   } satisfies ChartConfig;
 
   return (
-    <Card className="sm:w-[80%]">
+    <Card className="sm:w-[80%] bg-transparent text-foreground ">
       <CardHeader className="items-center pb-0">
         <CardTitle className="text-2xl">Resume Score </CardTitle>
         <CardDescription className="flex-col gap-2 text-sm">
@@ -135,11 +125,13 @@ export function ScoreComponentCard({ score }: { score: number }) {
                         y={viewBox.cy}
                         textAnchor="middle"
                         dominantBaseline="middle"
+												className="text-foreground"
                       >
                         <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className=" text-black text-3xl font-bold"
+                          className="text-4xl font-bold"
+													fill="white"
                         >
                           {chartData[1].score}
                         </tspan>
@@ -184,7 +176,7 @@ export function BarChartCard({
     },
   } satisfies ChartConfig;
   return (
-    <Card className="sm:w-[80%] md:w-[50%] ">
+    <Card className="sm:w-[80%] md:w-[50%] bg-transparent text-foreground">
       <CardHeader>
         <CardTitle>Bar Chart - Horizontal</CardTitle>
         <CardDescription>
@@ -230,8 +222,8 @@ export function DetailScoreComponent({
   feedback: FeedbackDetails;
 }) {
   return (
-    <section className="bg-white p-4 border rounded-lg">
-			<h1 className="font-bold pt-8 pb-4 pl-1">{feedbackName}</h1>
+    <section className="bg-backgorund p-4 border rounded-lg text-foreground">
+      <h1 className="font-bold pt-8 pb-4 pl-1">{feedbackName}</h1>
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="item-1">
           <AccordionTrigger className="pl-1">Strengths</AccordionTrigger>
