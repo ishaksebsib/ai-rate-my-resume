@@ -25,17 +25,13 @@ const HeroContainer = () => {
     formData.append("file", file);
 
     // Validate file type
-    {
-      /*
-       *const validFileTypes = [
-       *  "application/pdf",
-       *  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-       *];
-       *if (!validFileTypes.includes(file.type)) {
-       *  toast.error("Invalid file type. Please upload a PDF or DOCX file.");
-       *  return;
-       *}
-       */
+    const validFileTypes = [
+      "application/pdf",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ];
+    if (!validFileTypes.includes(file.type)) {
+      toast.error("Invalid file type. Please upload a PDF or DOCX file.");
+      return;
     }
 
     // Upload file
