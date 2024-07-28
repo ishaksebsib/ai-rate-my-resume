@@ -19,7 +19,7 @@ export const handleAxiosError = (
       return message;
     }
   } else if (error.request) {
-    message = "No response received from server";
+    message = "Hmm, took too long to respond. Please check your connection.";
   }
 
   return message;

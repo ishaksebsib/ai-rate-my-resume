@@ -45,7 +45,10 @@ const HeroContainer = () => {
     try {
       setTimeout(() => {
         if (!uploadError) {
-          toast.loading("Analayzing resume...", { id: uploadTost });
+          toast.loading("Analayzing resume...", {
+            id: uploadTost,
+            duration: 0,
+          });
         }
       }, 3000);
 
@@ -56,8 +59,8 @@ const HeroContainer = () => {
       });
 
       //console.log("File uploaded successfully:", response.data);
-      setUploadStatus(UploadStatus.UPLOADED);
       toast.success("Result is ready!", { id: uploadTost });
+      setUploadStatus(UploadStatus.UPLOADED);
 
       router.push("/result/" + response.data.result_id);
       return;
