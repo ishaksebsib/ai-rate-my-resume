@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { PHProvider } from "./postHogProvider";
-import PostHogPageView from "./PostHogPageView";
+import GoogleAnalytics from "./googleAnalytics";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+			<GoogleAnalytics />
       <body className={inter.className}>{children}</body>
     </html>
   );
