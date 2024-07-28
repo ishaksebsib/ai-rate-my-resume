@@ -18,12 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <PHProvider>
-        <body className={inter.className}>
-          <PostHogPageView />
-          {children}
-        </body>
-      </PHProvider>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
