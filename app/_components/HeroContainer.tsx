@@ -41,7 +41,7 @@ const HeroContainer = () => {
     try {
       setTimeout(() => {
         if (!uploadError) {
-          toast.loading("Analayzing resume...", {
+          toast.loading("Analyzing resume...", {
             id: uploadTost,
             duration: 0,
           });
