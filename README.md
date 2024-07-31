@@ -2,6 +2,12 @@
 
 AI Rate My Resume is an innovative tool designed to help job seekers enhance their resumes with personalized feedback. By analyzing uploaded resumes, it provides detailed, actionable suggestions to improve content, structure, and overall presentation.
 
+## **Screenshots**
+
+![home page](https://github.com/ishaksebsib/ai-rate-my-resume/screenshots/screen-shoot1.png)
+
+![result page](https://github.com/ishaksebsib/.dotfiles/screenshots/screen-shoot2.png)
+
 ## **Why AI Rate My Resume?**
 
 -   I struggled to find personalized feedback for my resume and decided to create a solution.
