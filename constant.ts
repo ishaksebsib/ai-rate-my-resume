@@ -1,4 +1,4 @@
-export const API_URL = "https://rate-my-resume.onrender.com";
+export const API_URL = "http://13.49.57.204";
 
 export const CONSTANT = {
 	URLS: {
